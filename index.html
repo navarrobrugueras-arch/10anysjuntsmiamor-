@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra v10.0 - Build Successful</title>
+    <style>
+        /* Estilo Dark Mode - El favorito de los programadores */
+        body { 
+            background: #0b0e14; 
+            color: #d1d5db; 
+            font-family: 'Fira Code', 'Courier New', monospace; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .container { max-width: 800px; width: 100%; }
+        h1 { color: #4ade80; border-bottom: 2px solid #4ade80; padding-bottom: 10px; font-size: 1.5rem; }
+        
+        /* Línea de tiempo */
+        .timeline { 
+            border-left: 2px solid #4ade80; 
+            margin: 40px 0; 
+            padding-left: 30px; 
+        }
+        .event { margin-bottom: 40px; position: relative; }
+        .event::before { 
+            content: '●'; 
+            position: absolute; 
+            left: -37px; 
+            color: #4ade80; 
+            background: #0b0e14;
+            font-size: 20px;
+        }
+        .date { color: #facc15; font-weight: bold; display: block; margin-bottom: 5px; }
+        .desc { font-style: italic; color: #9ca3af; }
+
+        /* El botón de "Deploy" */
+        .deploy-btn { 
+            background: #4ade80; 
+            color: #064e3b; 
+            border: none; 
+            padding: 20px 40px; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            font-weight: bold; 
+            border-radius: 8px;
+            box-shadow: 0 4px 14px 0 rgba(74, 222, 128, 0.39);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .deploy-btn:hover { transform: scale(1.02); background: #22c55e; }
+
+        /* Sección de regalos oculta */
+        #surprise { 
+            display: none; 
+            margin-top: 50px; 
+            padding: 30px; 
+            border: 2px dashed #4ade80; 
+            border-radius: 12px;
+            background: rgba(74, 222, 128, 0.05);
+            text-align: center;
+        }
+        .gift-item { margin: 15px 0; font-size: 1.2rem; }
+        .viking { color: #fb923c; font-weight: bold; } /* Color Valheim */
+        .ai { color: #818cf8; font-weight: bold; }     /* Color IA */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>// Log: 10 Years of Continuous Deployment</h1>
+        
+        <div class="timeline">
+            <div class="event">
+                <span class="date">2014 - v1.0.0</span>
+                <p>Initial commit. El sistema se pone en marcha. Todo era nuevo y emocionante.</p>
+            </div>
+            <div class="event">
+                <span class="date">2019 - v5.0.0</span>
+                <p>Estabilidad de la base de datos. Muchos "merges" realizados y bugs solucionados juntos.</p>
+            </div>
+            <div class="event">
+                <span class="date">2024 - v10.0.0</span>
+                <p>Optimización total. "The bees are happy". Listos para la siguiente década de código y aventuras.</p>
+            </div>
+        </div>
+
+        <button class="deploy-btn" onclick="deploy()">git push origin next_decade --force</button>
+
+        <div id="surprise">
+            <h2>🚀 BUILD SUCCESSFUL!</h2>
+            <p>Se han generado 3 nuevos assets en tu inventario:</p>
+            <div class="gift-item">🛡️ <span class="viking">VALHEIM MODE:</span> Una jarra vikinga real para recuperar Stamina.</div>
+            <div class="gift-item">🧠 <span class="ai">UPGRADE IA:</span> Un curso/herramienta para dominar el futuro.</div>
+            <div class="gift-item">🌲 <span class="viking">ENVIRONMENT RESET:</span> Escapada de relax (Offline Mode).</div>
+            <p style="margin-top: 30px;">¡Felices 10 años! Eres mi desarrollador favorito.</p>
+        </div>
+    </div>
+
+    <script>
+        function deploy() {
+            const btn = document.querySelector('.deploy-btn');
+            btn.innerText = "Deploying... [##########] 100%";
+            setTimeout(() => {
+                btn.style.display = 'none';
+                document.getElementById('surprise').style.display = 'block';
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
