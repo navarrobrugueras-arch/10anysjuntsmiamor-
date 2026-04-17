@@ -100,6 +100,14 @@
             text-decoration: none;
             font-weight: bold;
         }
+        .pdf-error {
+            padding: 16px;
+            background: #7f1d1d;
+            color: #fee2e2;
+            border-top: 1px solid #f87171;
+            font-size: 0.95rem;
+            display: none;
+        }
         .keyboard {
             background: #111827;
             padding: 22px;
@@ -271,11 +279,12 @@
         <div class="document-section">
             <h2>// SPA Voucher</h2>
             <div class="pdf-card">
-                <iframe src="assets/spa_voucher.pdf"></iframe>
+                <iframe id="pdfFrame" src="assets/spa_voucher.pdf"></iframe>
                 <div class="pdf-footer">
                     <span>Si el PDF no se muestra bien, usa el enlace de abajo.</span>
                     <a href="assets/spa_voucher.pdf" target="_blank" rel="noreferrer">Abrir voucher en nueva pestaña</a>
                 </div>
+                <div class="pdf-error" id="pdfError">El archivo `assets/spa_voucher.pdf` no está disponible. Asegúrate de subirlo en la carpeta `assets` y recarga la página.</div>
             </div>
         </div>
         <div class="keyboard-section">
@@ -348,12 +357,12 @@
                     <img src="assets/photo8.jpg" alt="Foto 8">
                     <div class="photo-caption"><strong>Moment 8:</strong> Tarde de parque y calma.</div>
                 </div>
-                <div class="photo-card" data-src="assets/photo9.jpg">
-                    <img src="assets/photo9.jpg" alt="Foto 9">
+                <div class="photo-card" data-src="assets/photo9.jpeg">
+                    <img src="assets/photo9.jpeg" alt="Foto 9">
                     <div class="photo-caption"><strong>Moment 9:</strong> Nuestro rinconcito favorito.</div>
                 </div>
-                <div class="photo-card" data-src="assets/photo10.jpg">
-                    <img src="assets/photo10.jpg" alt="Foto 10">
+                <div class="photo-card" data-src="assets/photo10.jpeg">
+                    <img src="assets/photo10.jpeg" alt="Foto 10">
                     <div class="photo-caption"><strong>Moment 10:</strong> Recuerdos de un viaje precioso.</div>
                 </div>
                 <div class="photo-card" data-src="assets/photo11.jpg">
@@ -414,6 +423,15 @@
         closeButton.addEventListener('click', () => galleryModal.classList.remove('active'));
         galleryModal.addEventListener('click', event => {
             if (event.target === galleryModal) galleryModal.classList.remove('active');
+        });
+        fetch('assets/spa_voucher.pdf', { method: 'HEAD' }).then(response => {
+            if (!response.ok) {
+                document.getElementById('pdfFrame').style.display = 'none';
+                document.getElementById('pdfError').style.display = 'block';
+            }
+        }).catch(() => {
+            document.getElementById('pdfFrame').style.display = 'none';
+            document.getElementById('pdfError').style.display = 'block';
         });
     </script>
 </body>
