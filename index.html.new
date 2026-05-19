@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La nostra v10.0 - Inici</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">💜 10 anys junts</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <a href="index.html" class="active">Inici</a>
+                <a href="historia.html">La nostra história</a>
+                <a href="voucher.html">SPA Voucher</a>
+                <a href="teclat.html">Teclat Virtual</a>
+                <a href="memories.html">Memòries</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Una dècada amb tu</h1>
+            
+            <div class="intro-text">
+                <p>Benvingut a la celebració dels 10 anys que hem viscut junts. Aquest és un viatge especial a través de les nostres memòries, els nostres dreams i el nostre amor que ha crescut cada dia.</p>
+                <p style="margin-top: 18px;">T'invitem a explorar les nostres pàgines especials, on cada racó conté un record, cada tecla una paraula del cor, i cada imatge un moment que val més que mil paraules.</p>
+            </div>
+
+            <section class="section">
+                <h2>Navega per la nostra história</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                    <a href="historia.html" style="text-decoration: none;">
+                        <div style="background: #111827; border: 2px solid #4ade80; border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">📖</div>
+                            <h3 style="color: #4ade80; margin: 0;">La nostra história</h3>
+                            <p style="color: #d1d5db; margin-top: 10px; font-size: 0.9rem;">Descobreix com tot va começar i on arribaràs.</p>
+                        </div>
+                    </a>
+
+                    <a href="voucher.html" style="text-decoration: none;">
+                        <div style="background: #111827; border: 2px solid #4ade80; border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">💆</div>
+                            <h3 style="color: #4ade80; margin: 0;">SPA Voucher</h3>
+                            <p style="color: #d1d5db; margin-top: 10px; font-size: 0.9rem;">Un regal especial per relaxar-se junts.</p>
+                        </div>
+                    </a>
+
+                    <a href="teclat.html" style="text-decoration: none;">
+                        <div style="background: #111827; border: 2px solid #4ade80; border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">⌨️</div>
+                            <h3 style="color: #4ade80; margin: 0;">Teclat Virtual</h3>
+                            <p style="color: #d1d5db; margin-top: 10px; font-size: 0.9rem;">Toca les tecles i descobreix missatges ocults.</p>
+                        </div>
+                    </a>
+
+                    <a href="memories.html" style="text-decoration: none;">
+                        <div style="background: #111827; border: 2px solid #4ade80; border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">📸</div>
+                            <h3 style="color: #4ade80; margin: 0;">Memòries</h3>
+                            <p style="color: #d1d5db; margin-top: 10px; font-size: 0.9rem;">Una galeria de moments inoublidables.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Un viatge de 10 anys</h2>
+                <div class="intro-text">
+                    <p>Serà curiós com funciona la vida. Durant aquells vuit anys que no érem res, el destí ja estava treballant per nosaltres, preparant el terreny per quan ens tornéssim a trobar. No va ser sort, és que ens havíem de trobar per arribar on som avui.</p>
+                    <p style="margin-top: 18px;">Gràcies per no haver dubtat mai de mi. Per estar al meu costat en cada batalla i per confiar en nosaltres quan ningú més ho feia. Havíem de ser nosaltres els qui agaféssim una história que podia ser trista i la fessim la més bonica del món.</p>
+                    <p style="margin-top: 18px;">Avui, després de deu anys junts i vuit de casats, el món ja pot dir el que vulgui. No hem de demostrar res a ningú, perquè el que tenim és tan nostre i tan de veritat que només nosaltres sabem el que val.</p>
+                    <p style="margin-top: 18px;">T'estimo moltíssim, de la manera més pura que es pot estimar. Gràcies per no haver-me deixat anar mai la mà i per ser la persona que més he estimat a la meva vida.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Amb amor 💜 Una dècada junts i totes per venir</p>
+    </footer>
+

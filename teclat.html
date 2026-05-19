@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teclat Virtual - 10 anys junts</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .key-photo-display {
+            margin-top: 30px;
+            padding: 25px;
+            border: 2px solid #4ade80;
+            border-radius: 12px;
+            background: rgba(74, 222, 128, 0.05);
+            text-align: center;
+        }
+
+        .key-photo-display img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            max-height: 400px;
+            margin-bottom: 15px;
+        }
+
+        .key-photo-caption {
+            color: #e5e7eb;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .key-photo-caption strong {
+            color: #facc15;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">💜 10 anys junts</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <a href="index.html">Inici</a>
+                <a href="historia.html">La nostra história</a>
+                <a href="teclat.html" class="active">Teclat Virtual</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Teclat Virtual - 10 Moments</h1>
+            
+            <div class="intro-text">
+                <p>Cada tecla és un moment especial. Toca una per veure la foto i el seu significat.</p>
+            </div>
+
+            <section class="section">
+                <div class="music-player" style="margin-bottom: 30px;">
+                    <iframe id="musicFrame" src="https://www.youtube.com/embed/XTxdsv6R0y8?rel=0&autoplay=1&mute=0" title="Música d'aniversari" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+                <div class="keyboard">
+                    <div class="key-row">
+                        <div class="key" data-key="1" data-photo="assets/photo1.jpg" data-caption="L'inici de tot, el primer any d'una alegria compartida.">📖 1</div>
+                        <div class="key" data-key="2" data-photo="assets/photo2.jpg" data-caption="De convidats a la boda d'un amic a preparar la nostra, l'assaig perfecte.">❤️ 2</div>
+                        <div class="key" data-key="3" data-photo="assets/photo3.jpg" data-caption="El nostre &quot;sí&quot; més sincer, el dia que tot va ser perfecte.">💍 3</div>
+                    </div>
+                    <div class="key-row">
+                        <div class="key" data-key="4" data-photo="assets/photo4.jpg" data-caption="Simplement nosaltres, assaborint cada instant de la vida.">😊 4</div>
+                        <div class="key" data-key="5" data-photo="assets/photo5.jpg" data-caption="Superant-ho tot junts, fins i tot la nostra primera pandèmia.">💪 5</div>
+                        <div class="key" data-key="6" data-photo="assets/photo6.jpg" data-caption="Un amor que arrela, creix i està destinat a perdurar.">🌱 6</div>
+                    </div>
+                    <div class="key-row">
+                        <div class="key" data-key="7" data-photo="assets/photo7.jpg" data-caption="La nostra filla de quatre potes, el batec més dolç de la casa.">🐕 7</div>
+                        <div class="key" data-key="8" data-photo="assets/photo8.jpg" data-caption="Perduts pel blau de Grècia, un viatge inoblidable.">✈️ 8</div>
+                        <div class="key" data-key="9" data-photo="assets/photo9.jpg" data-caption="Un amor inesgotable, bategant al ritme de la natura i de la nostra gossa.">🌊 9</div>
+                    </div>
+                    <div class="key-row">
+                        <div class="key special wide" data-key="10" data-photo="assets/photo10.jpg" data-caption="Somnis que han deixat de ser-ho per convertir-se en la nostra realitat. Una dècada junts!">🚀 10 ANYS</div>
+                    </div>
+                </div>
+
+                <div class="key-photo-display" id="photoDisplay" style="display: none;">
+                    <img id="displayPhoto" src="" alt="Foto moment">
+                    <div class="key-photo-caption" id="displayCaption"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Amb amor 💜 Una dècada junts i totes per venir</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger menu
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('nav');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+
+            // Keyboard functionality
+            document.querySelectorAll('.key').forEach(key => {
+                key.addEventListener('click', function() {
+                    const photoSrc = this.dataset.photo;
+                    const caption = this.dataset.caption;
+                    
+                    document.getElementById('displayPhoto').src = photoSrc;
+                    document.getElementById('displayCaption').innerHTML = '<strong>Moment ' + this.dataset.key + ':</strong> ' + caption;
+                    document.getElementById('photoDisplay').style.display = 'block';
+                    
+                    // Animation
+                    this.style.backgroundColor = '#4ade80';
+                    this.style.color = '#064e3b';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                        this.style.color = '';
+                    }, 250);
+
+                    // Scroll to photo
+                    setTimeout(() => {
+                        document.getElementById('photoDisplay').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                });
+            });
+
+            // Close menu when clicking a link
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    nav.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
