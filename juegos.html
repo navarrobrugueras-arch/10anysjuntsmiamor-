@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos - 10 anys junts</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .games-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .game-section {
+            background: rgba(74, 222, 128, 0.05);
+            border: 2px solid #4ade80;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .game-section h2 {
+            color: #4ade80;
+            margin-top: 0;
+        }
+
+        /* MEMORY GAME */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: #1f2937;
+            border: 2px solid #4ade80;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .memory-card:hover {
+            background: #374151;
+            border-color: #86efac;
+        }
+
+        .memory-card.flipped {
+            background: #111827;
+            border-color: #4ade80;
+            transform: rotateY(180deg);
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .memory-card.flipped img {
+            display: block;
+        }
+
+        .memory-card.matched {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .memory-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 8px;
+            color: #e5e7eb;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        /* QUIZ GAME */
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-question {
+            background: #111827;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #4ade80;
+        }
+
+        .quiz-question p {
+            margin: 0 0 20px 0;
+            color: #e5e7eb;
+            font-size: 1.1rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 15px;
+            background: #1f2937;
+            border: 2px solid #374151;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #4ade80;
+            background: #111827;
+        }
+
+        .quiz-option.selected {
+            border-color: #4ade80;
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        .quiz-option.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-left: 4px solid #22c55e;
+        }
+
+        .quiz-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border-left: 4px solid #ef4444;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: #4ade80;
+            color: #064e3b;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #86efac;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .memory-grid {
+                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            }
+
+            .memory-card {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">💜 10 anys junts</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <a href="index.html">Inici</a>
+                <a href="historia.html">La nostra história</a>
+                <a href="teclat.html">Teclat Virtual</a>
+                <a href="juegos.html" class="active">Juegos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Juegos de l'amor 💜</h1>
+            
+            <div class="games-container">
+                <!-- MEMORY GAME -->
+                <div class="game-section">
+                    <h2>🎮 Memory - Encuentra las parejas</h2>
+                    <p>Recordem els moments més especials. Cerca les parelles de fotos!</p>
+                    
+                    <div class="memory-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Moviments</div>
+                            <div class="stat-value" id="movesCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Parelles</div>
+                            <div class="stat-value" id="matchesCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Temps</div>
+                            <div class="stat-value" id="timeCount">0s</div>
+                        </div>
+                    </div>
+
+                    <div class="memory-grid" id="memoryGrid"></div>
+
+                    <div class="game-buttons">
+                        <button class="btn" onclick="initMemoryGame()">Nou Joc</button>
+                    </div>
+                </div>
+
+                <!-- QUIZ GAME -->
+                <div class="game-section">
+                    <h2>🧠 Quiz - Quan ens coneixem?</h2>
+                    <p>Posa a prova quant saps sobre la nostra relació!</p>
+                    
+                    <div class="quiz-container">
+                        <div id="quizContent"></div>
+                        <div class="game-buttons">
+                            <button class="btn" onclick="initQuiz()" id="quizRestartBtn">Comença de nou</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Amb amor 💜 Una dècada junts i totes per venir</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // MEMORY GAME LOGIC
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let gameStarted = false;
+        let gameTime = 0;
+        let timerInterval = null;
+
+        const photoEmojis = ['📖', '❤️', '💍', '😊', '💪', '🌱', '🐕', '✈️', '🌊', '🎫'];
+
+        function initMemoryGame() {
+            memoryCards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            gameStarted = true;
+            gameTime = 0;
+            
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                gameTime++;
+                document.getElementById('timeCount').textContent = gameTime + 's';
+            }, 1000);
+
+            document.getElementById('movesCount').textContent = '0';
+            document.getElementById('matchesCount').textContent = '0';
+
+            // Create pairs
+            const pairs = photoEmojis.slice(0, 6);
+            memoryCards = [...pairs, ...pairs].sort(() => Math.random() - 0.5);
+
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            memoryCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.textContent = '?';
+                card.onclick = () => flipCard(card, index);
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(card, index) {
+            if (!gameStarted || flippedCards.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
+                return;
+            }
+
+            card.classList.add('flipped');
+            card.textContent = memoryCards[index];
+            flippedCards.push({ card, index });
+
+            if (flippedCards.length === 2) {
+                moves++;
+                document.getElementById('movesCount').textContent = moves;
+                
+                if (memoryCards[flippedCards[0].index] === memoryCards[flippedCards[1].index]) {
+                    flippedCards[0].card.classList.add('matched');
+                    flippedCards[1].card.classList.add('matched');
+                    matchedPairs++;
+                    document.getElementById('matchesCount').textContent = matchedPairs;
+                    flippedCards = [];
+
+                    if (matchedPairs === 6) {
+                        gameStarted = false;
+                        if (timerInterval) clearInterval(timerInterval);
+                        alert('🎉 ¡Has ganado en ' + gameTime + ' segundos!');
+                    }
+                } else {
+                    setTimeout(() => {
+                        flippedCards[0].card.classList.remove('flipped');
+                        flippedCards[1].card.classList.remove('flipped');
+                        flippedCards[0].card.textContent = '?';
+                        flippedCards[1].card.textContent = '?';
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        // QUIZ GAME LOGIC
+        const quizQuestions = [
+            {
+                question: "¿En qué año nos conocimos?",
+                options: ["2014", "2015", "2016", "2017"],
+                correct: 1
+            },
+            {
+                question: "¿Dónde nos vimos por primera vez?",
+                options: ["Escuela", "Calle", "Fiesta", "Internet"],
+                correct: 0
+            },
+            {
+                question: "¿Cuántos años llevamos juntos?",
+                options: ["8", "9", "10", "11"],
+                correct: 2
+            },
+            {
+                question: "¿Nuestro animal favorito es?",
+                options: ["Gato", "Perro", "Pajaro", "Pez"],
+                correct: 1
+            },
+            {
+                question: "¿Dónde fue nuestra luna de miel?",
+                options: ["París", "Viena", "Barcelona", "Roma"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function initQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const quizContent = document.getElementById('quizContent');
+            
+            if (currentQuestion >= quizQuestions.length) {
+                quizContent.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <h3 style="color: #4ade80; font-size: 1.5rem; margin-bottom: 20px;">Quiz completat! 🎉</h3>
+                        <p style="font-size: 1.2rem; color: #e5e7eb; margin-bottom: 20px;">Has obtingut <strong style="color: #4ade80;">${score}/${quizQuestions.length}</strong> respostes correctes!</p>
+                        <div style="background: rgba(74, 222, 128, 0.1); padding: 20px; border-radius: 8px;">
+                            <p style="color: #9ca3af; margin: 0;">Bé! Saps molt sobre nosaltres! 💜</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = quizQuestions[currentQuestion];
+            let html = `
+                <div class="quiz-question">
+                    <p>Pregunta ${currentQuestion + 1}/${quizQuestions.length}: ${q.question}</p>
+                    <div class="quiz-options">
+            `;
+
+            q.options.forEach((option, index) => {
+                html += `<button class="quiz-option" onclick="selectQuizOption(${index})">${option}</button>`;
+            });
+
+            html += `</div><div class="quiz-result" id="quizResult"></div></div>`;
+
+            quizContent.innerHTML = html;
+        }
+
+        function selectQuizOption(index) {
+            const q = quizQuestions[currentQuestion];
+            const resultDiv = document.getElementById('quizResult');
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => opt.disabled = true);
+
+            if (index === q.correct) {
+                score++;
+                resultDiv.textContent = '✅ ¡Correcto!';
+                resultDiv.classList.add('show', 'correct');
+                options[index].classList.add('correct');
+            } else {
+                resultDiv.textContent = '❌ Incorrect! La resposta correcta és: ' + q.options[q.correct];
+                resultDiv.classList.add('show', 'incorrect');
+                options[index].classList.add('incorrect');
+                options[q.correct].classList.add('correct');
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                showQuizQuestion();
+            }, 2000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger menu
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('nav');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+
+            // Initialize games
+            initMemoryGame();
+            initQuiz();
+        });
+    </script>
+</body>
+</html>
