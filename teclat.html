@@ -82,10 +82,7 @@
                         <div class="key" data-key="9" data-photo="assets/photo9.jpg" data-caption="Un amor inesgotable, bategant al ritme de la natura i de la nostra gossa.">🌊 9</div>
                     </div>
                     <div class="key-row">
-                        <div class="key" data-key="10" data-photo="assets/photo11.jpg" data-caption="L'espera ha valgut cada segon… i Viena ha estat l'escenari de la nostra lluna de mel.">🎫 10</div>
-                    </div>
-                    <div class="key-row">
-                        <div class="key special wide" data-key="10" data-photo="assets/photo10.jpg" data-caption="Somnis que han deixat de ser-ho per convertir-se en la nostra realitat. Una dècada junts!">🚀 10 ANYS</div>
+                        <div class="key special wide" data-key="10" data-photo1="assets/photo10.jpg" data-caption1="Somnis que han deixat de ser-ho per convertir-se en la nostra realitat. Una dècada junts!" data-photo2="assets/photo11.jpg" data-caption2="L'espera ha valgut cada segon… i Viena ha estat l'escenari de la nostra lluna de mel.">🚀 10 ANYS</div>
                     </div>
                 </div>
 
@@ -116,12 +113,38 @@
             // Keyboard functionality
             document.querySelectorAll('.key').forEach(key => {
                 key.addEventListener('click', function() {
-                    const photoSrc = this.dataset.photo;
-                    const caption = this.dataset.caption;
+                    const displayDiv = document.getElementById('photoDisplay');
+                    const displayPhoto = document.getElementById('displayPhoto');
+                    const displayCaption = document.getElementById('displayCaption');
                     
-                    document.getElementById('displayPhoto').src = photoSrc;
-                    document.getElementById('displayCaption').innerHTML = '<strong>Moment ' + this.dataset.key + ':</strong> ' + caption;
-                    document.getElementById('photoDisplay').style.display = 'block';
+                    // Check if there are multiple photos
+                    if (this.dataset.photo1) {
+                        let html = '<strong>Moment ' + this.dataset.key + ':</strong><br>';
+                        
+                        // Photo 1
+                        html += '<div style="margin-top: 20px;">';
+                        html += '<img src="' + this.dataset.photo1 + '" alt="Foto moment" style="max-width: 100%; height: auto; border-radius: 8px; max-height: 400px; margin-bottom: 15px;">';
+                        html += '<div style="color: #e5e7eb; font-size: 1rem; line-height: 1.6;">' + this.dataset.caption1 + '</div>';
+                        html += '</div>';
+                        
+                        // Photo 2
+                        html += '<div style="margin-top: 20px;">';
+                        html += '<img src="' + this.dataset.photo2 + '" alt="Foto moment" style="max-width: 100%; height: auto; border-radius: 8px; max-height: 400px; margin-bottom: 15px;">';
+                        html += '<div style="color: #e5e7eb; font-size: 1rem; line-height: 1.6;">' + this.dataset.caption2 + '</div>';
+                        html += '</div>';
+                        
+                        displayPhoto.style.display = 'none';
+                        displayCaption.innerHTML = html;
+                    } else {
+                        const photoSrc = this.dataset.photo;
+                        const caption = this.dataset.caption;
+                        
+                        displayPhoto.style.display = 'block';
+                        displayPhoto.src = photoSrc;
+                        displayCaption.innerHTML = '<strong>Moment ' + this.dataset.key + ':</strong> ' + caption;
+                    }
+                    
+                    displayDiv.style.display = 'block';
                     
                     // Animation
                     this.style.backgroundColor = '#4ade80';
@@ -133,7 +156,7 @@
 
                     // Scroll to photo
                     setTimeout(() => {
-                        document.getElementById('photoDisplay').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        displayDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }, 100);
                 });
             });
