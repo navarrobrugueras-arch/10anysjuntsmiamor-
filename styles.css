@@ -310,7 +310,9 @@ h3 {
 
 /* GALERÍA DE FOTOS */
 .music-player {
-    margin-bottom: 25px;
+    margin-bottom: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 .music-player iframe {
