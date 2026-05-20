@@ -28,7 +28,7 @@
         /* MEMORY GAME */
         .memory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
             gap: 10px;
             margin: 20px 0;
         }
@@ -214,7 +214,7 @@
 
         @media (max-width: 768px) {
             .memory-grid {
-                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
             }
 
             .memory-card {
@@ -243,13 +243,13 @@
 
     <main>
         <div class="container">
-            <h1>Juegos de l'amor 💜</h1>
+            <h1>Deixem que el joc parli 💜</h1>
             
             <div class="games-container">
                 <!-- MEMORY GAME -->
                 <div class="game-section">
-                    <h2>🎮 Memory - Encuentra las parejas</h2>
-                    <p>Recordem els moments més especials. Cerca les parelles de fotos!</p>
+                    <h2>🎮 Memory - Fes coincidir les parelles</h2>
+                    <p>Recordem els moments més especials!</p>
                     
                     <div class="memory-stats">
                         <div class="stat-item">
@@ -276,7 +276,7 @@
                 <!-- QUIZ GAME -->
                 <div class="game-section">
                     <h2>🧠 Quiz - Quan ens coneixem?</h2>
-                    <p>Posa a prova quant saps sobre la nostra relació!</p>
+                   
                     
                     <div class="quiz-container">
                         <div id="quizContent"></div>
@@ -290,7 +290,7 @@
     </main>
 
     <footer>
-        <p>Amb amor 💜 Una dècada junts i totes per venir</p>
+        <p>Una dècada junts i totes per venir💜</p>
     </footer>
 
     <script src="script.js"></script>
@@ -304,7 +304,20 @@
         let gameTime = 0;
         let timerInterval = null;
 
-        const photoEmojis = ['📖', '❤️', '💍', '😊', '💪', '🌱', '🐕', '✈️', '🌊', '🎫'];
+        const photoEmojis = [
+            'assets/p1.jpg', 
+            'assets/p2.jpg', 
+            'assets/p3.jpg', 
+            'assets/p4.jpg', 
+            'assets/p5.jpg', 
+            'assets/p6.jpg', 
+            'assets/p7.jpg', 
+            'assets/p8.jpg', 
+            'assets/p9.jpg', 
+            'assets/p10.jpg', 
+            'assets/p11.jpg', 
+            'assets/p12.jpg'
+        ];
 
         function initMemoryGame() {
             memoryCards = [];
@@ -324,7 +337,11 @@
             document.getElementById('matchesCount').textContent = '0';
 
             // Create pairs
-            const pairs = photoEmojis.slice(0, 6);
+            const pairs = photoEmojis.slice(0, 12).map(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                return img.outerHTML;
+            });
             memoryCards = [...pairs, ...pairs].sort(() => Math.random() - 0.5);
 
             const grid = document.getElementById('memoryGrid');
@@ -345,7 +362,7 @@
             }
 
             card.classList.add('flipped');
-            card.textContent = memoryCards[index];
+            card.innerHTML = memoryCards[index];
             flippedCards.push({ card, index });
 
             if (flippedCards.length === 2) {
@@ -359,17 +376,17 @@
                     document.getElementById('matchesCount').textContent = matchedPairs;
                     flippedCards = [];
 
-                    if (matchedPairs === 6) {
+                    if (matchedPairs === 12) {
                         gameStarted = false;
                         if (timerInterval) clearInterval(timerInterval);
-                        alert('🎉 ¡Has ganado en ' + gameTime + ' segundos!');
+                        alert('🎉 I al final, sempre ens acabem trobant 💜' + gameTime + ' segundos!');
                     }
                 } else {
                     setTimeout(() => {
                         flippedCards[0].card.classList.remove('flipped');
                         flippedCards[1].card.classList.remove('flipped');
-                        flippedCards[0].card.textContent = '?';
-                        flippedCards[1].card.textContent = '?';
+                        flippedCards[0].card.innerHTML = '?';
+                        flippedCards[1].card.innerHTML = '?';
                         flippedCards = [];
                     }, 1000);
                 }
@@ -379,29 +396,104 @@
         // QUIZ GAME LOGIC
         const quizQuestions = [
             {
-                question: "¿En qué año nos conocimos?",
-                options: ["2014", "2015", "2016", "2017"],
+                question: "Quin és el meu menjar preferit?",
+                options: ["Pizza 🍕", "Hamburguesa 🍔", "Pasta 🍝", "El que em vingui de gust aquell dia 😏"],
+                correct: 3
+            },
+            {
+                question: "En el fons, sóc més de…",
+                options: ["Matins tranquils 🌅", "Nits llargues 🌙", "Dormir sempre 😴", "Depèn del dia"],
                 correct: 1
             },
             {
-                question: "¿Dónde nos vimos por primera vez?",
-                options: ["Escuela", "Calle", "Fiesta", "Internet"],
-                correct: 0
+                question: "Quan estic amb tu, què prefereixo?",
+                options: ["Parlar molt 💬", "Riure sense parar 😂", "Estar tranquil/a però junts 🏠", "Tot barrejat 😏"],
+                correct: 3
             },
             {
-                question: "¿Cuántos años llevamos juntos?",
-                options: ["8", "9", "10", "11"],
+                question: "Qui és més feble quan la Kira demana menjar?",
+                options: ["Jo 😏", "Tu 😏", "Els dos 🤝", "Impossible resistir-la"],
+                correct: 3
+            },
+            {
+                question: "Què diem més sovint a casa?",
+                options: ["“Què mengem?” 🍽️", "“On està això?” 🔍", "“Després ho fem” 😏", "Totes les anteriors"],
+                correct: 3
+            },
+            {
+                question: "Qui deixa més coses fora de lloc?",
+                options: ["Jo 🙋", "Tu 🙋‍♀️", "Els dos 🤝", "Caos total 😆"],
+                correct: 1
+            },
+            {
+                question: "Qui triga més a preparar-se?",
+                options: ["Jo", "Tu", "Depèn del dia", "Sempre algú espera 😏"],
+                correct: 3
+            },
+            {
+                question: "Qui diu “no tinc gana” i menja igual?",
+                options: ["Jo", "Tu", "Els dos", "Mentida universal 😏"],
+                correct: 3
+            },
+            {
+                question: "Què passa amb el comandament de la tele?",
+                options: ["Jo el tinc sempre", "Tu el tens sempre", "Guerra freda silenciosa 🔥", "Desapareix misteriosament"],
+                correct: 1
+            },
+            {
+                question: "Qui roba més espai al llit?",
+                options: ["Jo", "Tu", "La Kira 🐶", "Dormim en diagonal 😏"],
                 correct: 2
             },
             {
-                question: "¿Nuestro animal favorito es?",
-                options: ["Gato", "Perro", "Pajaro", "Pez"],
+                question: "Qui va fer el primer petó?",
+                options: ["Jo 🙋", "Tu 🙋‍♂️", "Alhora 😏", "Encara hi ha debat etern 😂"],
+                correct: 3
+            },
+            {
+                question: "On va ser la nostra “primera cita”?",
+                options: ["London Cafe ☕", "Passeig 🚶", "Casa 🏠", "No ho recordem bé 😆"],
+                correct: 0
+            },
+            {
+                question: "Què va passar a la primera cita?",
+                options: ["Ressaca 🤕", "Nervis 😳", "Silencis incòmodes 🤫", "Tot això junt 😏"],
+                correct: 3
+            },
+            {
+                question: "Què descriu millor la nostra relació?",
+                options: ["Tranquil·la", "Caòtica 😂", "Equilibrada ⚖️", "Tot això junt 😏"],
+                correct: 3
+            },
+            {
+                question: "Qui recorda millor les coses importants?",
+                options: ["Jo", "Tu", "Depèn del tema", "Cap dels dos 😆"],
                 correct: 1
             },
             {
-                question: "¿Dónde fue nuestra luna de miel?",
-                options: ["París", "Viena", "Barcelona", "Roma"],
-                correct: 1
+                question: "Qui parla més amb frases curtes?",
+                options: ["Jo", "Tu", "Els dos", "Conversa mínima funcional"],
+                correct: 0
+            },
+            {
+                question: "Què passa amb les converses importants?",
+                options: ["Es resolen ràpid", "Es posposen", "Es repeteixen", "Acaben en riure 😏"],
+                correct: 3
+            },
+            {
+                question: "Qui riu per coses que l’altre no entén?",
+                options: ["Jo", "Tu", "Els dos", "Moments sense explicació"],
+                correct: 0
+            },
+            {
+                question: "Què fa la Kira quan vol atenció?",
+                options: ["S’asseu tranquil·la", "Ens mira fixament 👀", "Insisteix fins que cedim 😏", "Fa drama caní"],
+                correct: 2
+            },
+            {
+                question: "Què passa quan fem plans improvisats?",
+                options: ["Tot surt perfecte", "Tot surt segons pla", "Riures i improvisació 😂", "El pla canvia sol"],
+                correct: 2
             }
         ];
 
@@ -423,7 +515,7 @@
                         <h3 style="color: #4ade80; font-size: 1.5rem; margin-bottom: 20px;">Quiz completat! 🎉</h3>
                         <p style="font-size: 1.2rem; color: #e5e7eb; margin-bottom: 20px;">Has obtingut <strong style="color: #4ade80;">${score}/${quizQuestions.length}</strong> respostes correctes!</p>
                         <div style="background: rgba(74, 222, 128, 0.1); padding: 20px; border-radius: 8px;">
-                            <p style="color: #9ca3af; margin: 0;">Bé! Saps molt sobre nosaltres! 💜</p>
+                            <p style="color: #9ca3af; margin: 0;">Potser era un joc, però tu sempre acabes tocant-me el cor 💜</p>
                         </div>
                     </div>
                 `;
@@ -455,11 +547,11 @@
 
             if (index === q.correct) {
                 score++;
-                resultDiv.textContent = '✅ ¡Correcto!';
+                resultDiv.textContent = 'Perfecte, com nosaltres ✨';
                 resultDiv.classList.add('show', 'correct');
                 options[index].classList.add('correct');
             } else {
-                resultDiv.textContent = '❌ Incorrect! La resposta correcta és: ' + q.options[q.correct];
+                resultDiv.textContent = 'Error… però segueixes sent el meu encert preferit 💜 és: ' + q.options[q.correct];
                 resultDiv.classList.add('show', 'incorrect');
                 options[index].classList.add('incorrect');
                 options[q.correct].classList.add('correct');
@@ -468,7 +560,7 @@
             setTimeout(() => {
                 currentQuestion++;
                 showQuizQuestion();
-            }, 2000);
+            }, 4000);
         }
 
         // Initialize on page load
